@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Quicksand:wght@600;700&display=swap');
+
+$green-100: #F3FFDC;
+$green-200: #DEFF9E;
+$green-300: #89C01C;
+$green-400: #649700;
+
+$grey-100: #F8F8F8;
+$grey-150: #E5E6E2;
+$grey-200: #D1D1D1;
+$grey-400: #8E8E8E;
+
+$black: #2A2A2A;
+
+$green: $green-300; // #89C01C
+$red: #FF6A44;
+
+$heading-font: 'Quicksand', sans-serif;
+$body-font: 'Open Sans', sans-serif;
+
+$main-heading-font-size: 3rem;
+$sub-heading-font-size: 2.5rem;
+$content-heading-font-size: 2rem;
+
+$body-font-size: 1.8rem;
+$body-secondary-font-size: 1.6rem;
+$body-small-font-size: 1.4rem;
+$body-tiny-font-size: 1.2rem;

@@ -1,0 +1,38 @@
+@mixin breakpoint-up($size) {
+  @if ($size == 'xs') {
+    @media (min-width: 567px) {
+      @content;
+    }
+  }
+  @if ($size == 'sm') {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+  @if ($size == 'md') {
+    @media (min-width: 992px) {
+      @content;
+    }
+  }
+  @if ($size == 'lg') {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
+.container {
+  margin: 0 auto;
+
+  @include breakpoint-up('sm') {
+    max-width: 720px;
+  }
+
+  @include breakpoint-up('md') {
+    max-width: 960px;
+  }
+
+  @include breakpoint-up('lg') {
+    max-width: 1200px;
+  }
+}
