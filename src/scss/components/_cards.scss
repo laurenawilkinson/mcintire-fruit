@@ -1,0 +1,66 @@
+.card {
+  width: 100%;
+  background-color: white;
+  border-radius: 2rem;
+  padding: 2rem;
+
+  &__icon {
+    max-height: 7rem;
+    margin-top: 2rem;
+    color: $red;
+
+    .material-icons {
+      font-size: 7rem;
+    }
+
+    + .card__heading {
+      margin-top: 2rem;
+    }
+  }
+
+  &__header {
+
+    .card__heading {
+      font-size: 2rem;
+      font-family: $heading-font;
+    }
+  }
+
+  &__body {
+    padding: 2.5rem 0;
+    font-size: $body-font-size;
+  }
+}
+
+.card-list {
+  $horizontal-margin: 2rem;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  .card + .card {
+    margin-top: 3rem;
+  }
+
+  @include breakpoint-up('md') {
+    flex-wrap: unset;
+    padding: 0 $horizontal-margin;
+
+    .card + .card {
+      margin-top: 0;
+    }
+
+    .card {
+      margin: 0 $horizontal-margin;
+  
+      &:first-child {
+        margin-left: -$horizontal-margin;
+      }
+  
+      &:last-child {
+        margin-right: -$horizontal-margin;
+      }
+    }
+  }
+
+}

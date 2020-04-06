@@ -2,9 +2,12 @@
 @import 'utilities/base';
 @import 'utilities/layout';
 @import 'utilities/transitions';
+@import 'utilities/typography';
 
 @import 'components/header';
 @import 'components/dropdowns';
 @import 'components/footer';
+@import 'components/cards';
+@import 'components/buttons';
 
 @import 'pages/home';
