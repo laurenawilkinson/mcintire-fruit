@@ -7,15 +7,15 @@ h3 {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: $main-heading-font-size;
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: $sub-heading-font-size;
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: $content-heading-font-size;
 }
 
 .subtitle {
@@ -26,4 +26,8 @@ h3 {
 
 body {
   line-height: 1.5;
+}
+
+p {
+  margin: 0 0 1.5rem 0;
 }

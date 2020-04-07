@@ -16,8 +16,10 @@ a {
 }
 
 input,
-select {
+select,
+button {
   font-family: $body-font;
+  font-size: inherit;
 }
 
 .text-with-icon {

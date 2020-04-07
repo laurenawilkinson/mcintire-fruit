@@ -50,7 +50,6 @@
   &__contact {
     grid-column: 2;
     grid-row: 1;
-    font-size: $body-secondary-font-size;
 
     .material-icons {
       font-size: 2.2rem;
@@ -69,24 +68,46 @@
     position: relative;
 
     .region-select {
-      display: none;
+      display: flex;
+      font-size: $body-font-size;
+
+      &__button {
+        padding: 0;
+      }
+
+      @include breakpoint-down('sm') {
+        .region-select__icon {
+          margin: 0 !important;
+          color: $green-400;
+        }
+  
+        .material-icons {
+          margin-left: 0.5rem;
+          margin-right: 0 !important;
+        }
+
+        .region-select__options {
+          width: 175px;
+          right: 0;
+          left: unset;
+        }
+      }
     }
 
     .region-select__icon {
-      padding: 1rem;
       color: $green-400;
       cursor: pointer;
+    }
+    
+    .region-select__text {
+      display: none;
     }
 
     @include breakpoint-up('sm') {
       grid-row: 2;
-
-      .region-select {
-        display: block;
-      }
       
-      .region-select__icon {
-        display: none;
+      .region-select__text {
+        display: inline-block;
       }
     }
   }
@@ -108,6 +129,7 @@
       padding: 0;
       color: $green-400;
       font-weight: 600;
+      font-size: $body-large-font-size;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -115,6 +137,11 @@
       justify-content: center;
 
       @include breakpoint-up('sm') {
+        padding: 0 1rem;
+      }
+      
+
+      @include breakpoint-up('md') {
         padding: 0 2rem;
       }
 

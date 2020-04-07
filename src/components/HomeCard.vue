@@ -34,19 +34,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.card__header {
-    text-align: center;
-  }
-
-  .card__body {
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-
-  .card__footer {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-</style>

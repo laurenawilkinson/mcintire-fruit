@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <the-header />
-    <router-view />
+    <the-header :region.sync="region" />
+    <router-view :region.sync="region" ref="view" />
     <the-footer />
   </div>
 </template>
@@ -14,6 +14,16 @@ export default {
   components: {
     TheHeader,
     TheFooter
+  },
+  data () {
+    return {
+      region: 'uk'
+    }
+  },
+  watch: {
+    region () {
+      if (this.$refs.view.reload) this.$refs.view.reload();
+    }
   }
 }
 </script>

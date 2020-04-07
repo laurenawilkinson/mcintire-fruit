@@ -11,11 +11,11 @@
       </div>
       <div class="header__nav">  
         <div 
-          v-on-clickaway="hideDropdown"
+          v-on-clickaway="hideProduceDropdown"
           class="dropdown header__nav-link" 
           @click="showProduce = !showProduce">
           <span class="dropdown__target">Produce <i class="material-icons">keyboard_arrow_down</i></span>
-          <transition mode="out-in" name="fade">
+          <transition mode="out-in" name="fade-down-center">
             <ul 
               v-if="showProduce" 
               class="dropdown__items">
@@ -35,12 +35,24 @@
         </span>
       </div>
       <div class="header__region">
-        <i class="region-select__icon material-icons">language</i>
-        <div class="region-select">
-          <select>
-            <option>United Kingdom</option>
-            <option>United States</option>
-          </select>
+        <div class="region-select" v-on-clickaway="hideRegionSelect">
+          <button 
+            type="button" 
+            class="region-select__button button--icon-left button--icon-right"
+            @click="showRegionSelect = !showRegionSelect">
+            <i class="material-icons region-select__icon">language</i>
+            <span class="region-select__text">{{ selectedRegion.text }}</span>
+            <i class="material-icons">keyboard_arrow_down</i>
+          </button>
+          <transition mode="out-in" name="fade-down">
+            <ul class="region-select__options" v-if="showRegionSelect">
+              <li 
+                v-for="opt in regionOptions" 
+                :key="opt.value"
+                class="region-select__option"
+                @click="headerRegion = opt.value">{{ opt.text }}</li>
+            </ul>
+          </transition>
         </div>
       </div>
     </div>
@@ -53,14 +65,44 @@ import { mixin as clickaway } from 'vue-clickaway';
 export default {
   name: "TheHeader",
   mixins: [ clickaway ],
+  props: {
+    region: String
+  },
   data () {
     return {
-      showProduce: false
+      showProduce: false,
+      showRegionSelect: false,
+      regionOptions: [
+        {
+          value: 'uk',
+          text: 'United Kingdom'
+        },
+        {
+          value: 'us',
+          text: 'United States'
+        }
+      ]
+    }
+  },
+  computed: {
+    selectedRegion () {
+      return this.regionOptions.find(x => x.value == this.region);
+    },
+    headerRegion: {
+      get () {
+        return this.region;
+      },
+      set (value) {
+        return this.$emit('update:region', value);
+      }
     }
   },
   methods: {
-    hideDropdown () {
+    hideProduceDropdown () {
       this.showProduce = false;
+    },
+    hideRegionSelect () {
+      this.showRegionSelect = false;
     }
   }
 };

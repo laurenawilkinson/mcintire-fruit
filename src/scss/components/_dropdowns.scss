@@ -1,3 +1,16 @@
+@mixin dropdown-items {
+  padding: 1rem 0;
+  box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
+@mixin dropdown-item {
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+}
+
 .dropdown {
   display: inline-block;
   position: relative;
@@ -19,16 +32,15 @@
     transform: translate(-50%, 0);
     background-color: white;
     width: 150px;
-    border-radius: 5px;
     list-style: none;
-    padding: 1rem 0;
-    box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
+    font-size: $body-font-size;
+    color: $green-400;
+    @include dropdown-items;
 
     .dropdown__item {
-      color: $green-400;
-      padding: 1rem;
-      text-align: left;
+      @include dropdown-item;
       
+  
       &:hover {
         background-color: $green-100;
       }
@@ -41,18 +53,52 @@
   border: 1px solid $grey-200;
   display: flex;
   padding: 0.5rem 1rem;
+  position: relative;
+
+  &__button {
+    background-color: inherit;
+    border: 0;
+    display: flex;
+    align-items: center;
+    outline: 0;
+    cursor: pointer;
+  }
+
+  &__options {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    background-color: white;
+    width: 100%;
+    @include dropdown-items;
+  }
+
+  &__option {
+    @include dropdown-item;
+  
+    &:hover {
+      background-color: $grey-100;
+    }
+  }
+
+  .material-icons {
+    color: $green;
+    margin-right: 0.3rem;
+  }
 
   select {
     border: 0;
     width: 100%;
     
-    &:focus {
-      outline: 0;
+    &, option {
+      font-size: inherit;
     }
     
-    option {
-      padding: 2rem;
-      font-size: $body-small-font-size;
+    &:focus {
+      outline: 0;
     }
   }
 }

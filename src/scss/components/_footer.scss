@@ -1,7 +1,7 @@
 .footer {
   background-color: $grey-100;
-  font-size: $body-secondary-font-size;
   padding: 4rem 0;
+  margin-top: 10rem;
 
   .container {
     display: grid;
@@ -56,7 +56,7 @@
     }
 
     label {
-      font-size: $body-tiny-font-size;
+      font-size: $body-small-font-size;
       color: $grey-400;
     }
   }
