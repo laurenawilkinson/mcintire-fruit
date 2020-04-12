@@ -1,4 +1,5 @@
 .home {
+  background-color: #E5E6E2;
   .hero-section {
     height: 600px;
     width: 100%;
@@ -24,7 +25,7 @@
         margin-top: 10rem;
 
         h1 {
-          font-size: 5rem;
+          font-size: $page-heading-font-size;
         }
       }
 

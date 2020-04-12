@@ -4,20 +4,28 @@ $green-100: #F3FFDC;
 $green-200: #DEFF9E;
 $green-300: #89C01C;
 $green-400: #649700;
+$green-500: #395500;
 
 $grey-100: #F8F8F8;
 $grey-150: #E5E6E2;
 $grey-200: #D1D1D1;
 $grey-400: #8E8E8E;
 
+$orange-100: #FFCE75;
+$orange-200: #FE860E;
+$orange-400: #8D3C00;
+$orange-500: #5B2700;
+
 $black: #2A2A2A;
 
 $green: $green-300; // #89C01C
 $red: #FF6A44;
+$orange: $orange-200;
 
 $heading-font: 'Quicksand', sans-serif;
 $body-font: 'Open Sans', sans-serif;
 
+$page-heading-font-size: 5rem;
 $main-heading-font-size: 3rem;
 $sub-heading-font-size: 2.5rem;
 $content-heading-font-size: 2rem;

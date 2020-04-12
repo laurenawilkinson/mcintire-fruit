@@ -1,0 +1,199 @@
+@mixin kidzone-card ($main-color, $background-color, $text-color) {
+  background-color: $background-color;
+  border: 5px dashed $main-color;
+
+  @include breakpoint-up('md') {
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  &__heading {
+    background-color: $main-color;
+  }
+
+  &__content {
+    color: $text-color;
+  }
+}
+
+
+.kidzone {
+  &__heading-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__heading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5rem 0 10rem;
+    background-color: transparent;
+    position: relative;
+
+    img {
+      &:first-of-type {
+        transform: translateY(1rem);
+      }
+
+      &:last-of-type {
+        transform: translateY(-1rem);
+      }
+
+      @include breakpoint-down('sm') {
+        position: absolute;
+
+        &:first-of-type {
+          left: 0;
+          bottom: 0;
+          transform: translate(-4rem, 3rem);
+        }
+  
+        &:last-of-type {
+          right: 0;
+          top: 0;
+          transform: translate(4rem, -3rem);
+        }
+      }
+    }
+
+    h1 {
+      margin: 0 0.5rem;
+      color: $orange;
+      font-size: 4.5rem;
+      text-transform: uppercase;
+
+      @include breakpoint-up('sm') {
+        font-size: $page-heading-font-size;
+      }
+      
+      $transform-amount: 0.2rem;
+  
+      span {
+        display: inline-block;
+  
+        + span {
+          margin-left: 1.5rem;
+        }
+  
+        &:nth-of-type(odd) {
+          transform: translateY($transform-amount);
+        }
+  
+        &:nth-of-type(even) {
+          transform: translateY(-$transform-amount);
+        }
+      }
+    }
+  }
+
+  &__card-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10rem;
+
+    $content-extra-padding: 12rem;
+    $image-offset: -7rem;
+
+    &.kidzone__card-container--right {
+      align-items: flex-end;
+
+      .kidzone-card {
+        @include kidzone-card($green, $green-200, $green-500);
+
+        @include breakpoint-up('md') {
+          background-image: url(../assets/kidzone-card-green.png);
+        }
+
+        &__image {
+          left: $image-offset;
+        }
+      }
+    }
+
+    &.kidzone__card-container--left {
+      align-items: flex-start;
+      
+      .kidzone-card {
+        @include kidzone-card($orange, $orange-100, $orange-500);
+        
+        @include breakpoint-up('sm') {
+          &__content {
+            padding-right: $content-extra-padding;
+          }
+        }
+        
+        @include breakpoint-up('md') {
+          background-image: url(../assets/kidzone-card-orange.png);
+        }
+
+        &__image {
+          right: $image-offset;
+        }
+      }
+    }
+
+    .kidzone-card {
+      position: relative;
+      border-radius: 20px;
+      width: 100%;
+
+      @include breakpoint-up('sm') {
+        width: 90%;
+      }
+
+      @include breakpoint-up('md') {
+        background-size: 100% 230px;
+        height: 230px;
+      }
+
+      &__heading {
+        color: white;
+        display: inline-block;
+        padding: 1rem 2rem;
+        border-radius: 100px;
+        position: absolute;
+        top: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        text-align: center;
+        
+        @include breakpoint-up('sm') {
+          text-align: left;
+          width: auto;
+          top: 0;
+          left: 0;
+          transform: translate(6rem, -2rem) rotate(-2deg);
+        }
+      }
+
+      &__content {
+        font-size: $body-large-font-size;
+        line-height: 2.2;
+        padding: 5rem 3rem 2rem;
+
+        @include breakpoint-up('sm') {
+          padding: 5rem 8rem 5rem 8rem;
+        }
+      }
+
+      &__image {
+        position: absolute;
+        display: none;
+
+        @include breakpoint-up('sm') {
+          display: block;
+          top: 2rem;
+          height: 180px;
+        }
+
+        img {
+          height: inherit;
+        }
+      }
+    }
+  }
+}

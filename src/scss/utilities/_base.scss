@@ -3,7 +3,6 @@
 }
 
 body {
-  background-color: #E5E6E2;
   font-family: $body-font;
   margin: 0;
   font-size: $body-font-size;
@@ -32,5 +31,7 @@ button {
 }
 
 .main-content {
+  background-color: white;
   min-height: 75vh;
+  padding-bottom: 10rem;
 }
