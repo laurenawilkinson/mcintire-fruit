@@ -27,12 +27,12 @@
 
   &__items {
     position: absolute;
-    top: 1rem;
+    top: 2rem;
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translate(-50%, 0);
     background-color: white;
-    width: 150px;
+    width: 180px;
     list-style: none;
     font-size: $body-font-size;
     color: $green-400;

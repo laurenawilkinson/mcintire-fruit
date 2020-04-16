@@ -22,6 +22,15 @@
               <li class="dropdown__item">
                 <router-link to="/produce">Fruit and Veg</router-link>
               </li>
+              <li class="dropdown__item">
+                <router-link to="/produce">Fruit Juices</router-link>
+              </li>
+              <li class="dropdown__item">
+                <router-link to="/produce">Homebrew Alcohol</router-link>
+              </li>
+              <li class="dropdown__item">
+                <router-link to="/produce">Merchandise</router-link>
+              </li>
             </ul>
           </transition>
         </div>
