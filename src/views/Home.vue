@@ -164,23 +164,37 @@ export default {
       this.loadMap();
     },
     async loadMap () {
-      setTimeout(() => {
-        var map = new window.Microsoft.Maps.Map(this.$refs.map, {
+      if (!window.Microsoft) {
+        console.log('no map')
+        setTimeout(() => { 
+          return this.loadMap();
+        }, 1000)
+      } else {
+        console.log('getting map')
+        let map = new window.Microsoft.Maps.Map(this.$refs.map, {
           center: new window.Microsoft.Maps.Location(this.mapOptions.center.latitude, this.mapOptions.center.longitude),
           zoom: this.mapOptions.zoom
         });
-
+  
         for (const pin of this.mapOptions.pins) {
-          var pushpin = new window.Microsoft.Maps.Pushpin(
+          let pushpin = new window.Microsoft.Maps.Pushpin(
             new window.Microsoft.Maps.Location(pin.location.latitude, pin.location.longitude),
             { title: pin.title });
           map.entities.push(pushpin);
         }
-      }, 500)
+      }
+
       
     }
   },
   mounted () {
+    let mapScript = document.createElement('script');
+
+    mapScript.setAttribute('src','http://www.bing.com/api/maps/mapcontrol?key=AhPwvMqYz4CjOOuY4Hdx7sUroVpuGF-vC-oZxkJRgtyLlpDns8AUwe1TdHOnUfkk');
+    mapScript.setAttribute('async', true);
+    mapScript.setAttribute('defer', true);
+
+    document.head.appendChild(mapScript);
     this.loadMap();
   }
 };

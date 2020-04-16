@@ -1,25 +1,215 @@
-@mixin kidzone-card ($main-color, $background-color, $text-color) {
+@mixin _kidzone-card ($main-color, $heading-color: white, $background-color: lighten($main-color, 22%), $text-color: darken($main-color, 30%)) {
   background-color: $background-color;
   border: 5px dashed $main-color;
 
+  .kidzone-card__heading {
+    background-color: $main-color;
+    color: $heading-color;
+  }
+
+  .kidzone-card__content {
+    color: $text-color;
+  }
+}
+
+
+@mixin kidzone-card ($main-color, $background-color, $text-color) {
+  @include _kidzone-card($main-color, white, $background-color, $text-color);
   @include breakpoint-up('md') {
     background-repeat: no-repeat;
     background-color: transparent;
     border: 0;
     border-radius: 0;
   }
-
-  &__heading {
-    background-color: $main-color;
-  }
-
-  &__content {
-    color: $text-color;
-  }
 }
 
 
 .kidzone {
+  
+  @include breakpoint-up('md') {
+    .kidzone-eatwell__container {
+      display: flex;
+    } 
+  }
+
+  .kidzone-card {
+    position: relative;
+    border-radius: 20px;
+    width: 100%;
+
+    &.kidzone-card--plate-info {
+      height: 100%;
+      margin: 3rem auto 0 auto;
+
+      @include breakpoint-up('sm') {
+        .kidzone-card__heading {
+          transform: translate(2rem, -2rem);
+        }
+      }
+
+      .kidzone-card__content {
+        padding: 5rem 4rem 4rem;
+
+        img {
+          margin-top: 1rem;
+          width: 100%;
+        }
+      }
+
+      &.kidzone-card--carbs {
+        @include _kidzone-card(#FCB22C, #7A4E00);
+      }
+      &.kidzone-card--fruitveg {
+        @include _kidzone-card(#89C01C, #395500);
+      }
+      &.kidzone-card--meat {
+        @include _kidzone-card(#FF8077, #7A0800);
+      }
+      &.kidzone-card--fats {
+        @include _kidzone-card(#A945D4, #3A0053);
+      }
+      &.kidzone-card--dairy {
+        @include _kidzone-card(#2CCAFC, #005f7c);
+      }
+    }
+
+
+    @include breakpoint-up('sm') {
+      width: 90%;
+    }
+
+    @include breakpoint-up('md') {
+      background-size: 100% 230px;
+      height: 230px;
+    }
+
+    &__heading {
+      color: white;
+      display: inline-block;
+      padding: 1rem 2rem;
+      border-radius: 100px;
+      position: absolute;
+      top: -2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      text-align: center;
+      
+      @include breakpoint-up('sm') {
+        text-align: left;
+        width: auto;
+        top: 0;
+        left: 0;
+        transform: translate(6rem, -2rem) rotate(-2deg);
+      }
+    }
+
+    &__content {
+      font-size: $body-large-font-size;
+      line-height: 2.2;
+      padding: 5rem 3rem 2rem;
+
+      @include breakpoint-up('sm') {
+        padding: 5rem 8rem 5rem 8rem;
+      }
+    }
+
+    &__image {
+      position: absolute;
+      display: none;
+
+      @include breakpoint-up('sm') {
+        display: block;
+        top: 2rem;
+        height: 180px;
+      }
+
+      img {
+        height: inherit;
+      }
+    }
+  }
+
+  &-plate {
+    $plate-size: 441px;
+    width: $plate-size;
+    min-width: $plate-size;
+    height: $plate-size;
+    flex-basis: $plate-size;
+    position: relative;
+    margin: 0 auto;
+    
+    &__container {
+      padding: 3rem;
+    }
+    
+    @include breakpoint-down('sm') {
+      transform: scale(0.7);
+
+      &__container {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    > .kidzone-plate__section {
+      position: absolute;
+      transition: transform 0.3s ease-out;
+      cursor: pointer;
+    }
+
+    &__carbs {
+      right: 0;
+      top: 0;
+      
+      &:hover,
+      &.kidzone-plate__section--active {
+        transform: translate(1rem, -1rem);
+      }
+    }
+
+    &__dairy {
+      right: 27px;
+      bottom: 7.5px;
+
+      &:hover,
+      &.kidzone-plate__section--active {
+        transform: translate(1.5rem, 2rem);
+      }
+    }
+
+    &__fats {
+      bottom: 0;
+      left: 169.5px;
+
+      &:hover,
+      &.kidzone-plate__section--active {
+        transform: translate(0, 3rem);
+      }
+    }
+
+    &__meat {
+      bottom: 5.5px;
+      left: 26px;
+
+      &:hover,
+      &.kidzone-plate__section--active {
+        transform: translate(-1.5rem, 2rem);
+      }
+    }
+
+    &__fruitveg {
+      top: 0;
+      left: 0;
+
+      &:hover,
+      &.kidzone-plate__section--active {
+        transform: translate(-1rem, -1rem);
+      }
+    }
+  }
+
   &__heading-container {
     display: flex;
     justify-content: center;
@@ -93,12 +283,15 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 10rem;
+    align-items: center;
 
     $content-extra-padding: 12rem;
     $image-offset: -7rem;
 
     &.kidzone__card-container--right {
-      align-items: flex-end;
+      @include breakpoint-up('sm') {
+        align-items: flex-end;
+      }
 
       .kidzone-card {
         @include kidzone-card($green, $green-200, $green-500);
@@ -114,7 +307,9 @@
     }
 
     &.kidzone__card-container--left {
-      align-items: flex-start;
+      @include breakpoint-up('sm') {
+        align-items: flex-start;
+      }
       
       .kidzone-card {
         @include kidzone-card($orange, $orange-100, $orange-500);
@@ -131,67 +326,6 @@
 
         &__image {
           right: $image-offset;
-        }
-      }
-    }
-
-    .kidzone-card {
-      position: relative;
-      border-radius: 20px;
-      width: 100%;
-
-      @include breakpoint-up('sm') {
-        width: 90%;
-      }
-
-      @include breakpoint-up('md') {
-        background-size: 100% 230px;
-        height: 230px;
-      }
-
-      &__heading {
-        color: white;
-        display: inline-block;
-        padding: 1rem 2rem;
-        border-radius: 100px;
-        position: absolute;
-        top: -2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;
-        text-align: center;
-        
-        @include breakpoint-up('sm') {
-          text-align: left;
-          width: auto;
-          top: 0;
-          left: 0;
-          transform: translate(6rem, -2rem) rotate(-2deg);
-        }
-      }
-
-      &__content {
-        font-size: $body-large-font-size;
-        line-height: 2.2;
-        padding: 5rem 3rem 2rem;
-
-        @include breakpoint-up('sm') {
-          padding: 5rem 8rem 5rem 8rem;
-        }
-      }
-
-      &__image {
-        position: absolute;
-        display: none;
-
-        @include breakpoint-up('sm') {
-          display: block;
-          top: 2rem;
-          height: 180px;
-        }
-
-        img {
-          height: inherit;
         }
       }
     }

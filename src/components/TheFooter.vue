@@ -9,11 +9,17 @@
       </div>
       <div class="footer__address">
         <label>Head Office (UK)</label>
-        <p>Test</p>
+        <p>McIntire Fruit</p>
+        <p>Fruits Lane</p>
+        <p>Scotland</p>
+        <p>MC1 1RE</p>
       </div>
       <div class="footer__address">
         <label>Head Office (US)</label>
-        <p>Test</p>
+        <p>McIntire Fruit</p>
+        <p>Fruits Lane</p>
+        <p>Delaware</p>
+        <p>MC1 1RE</p>
       </div>
     </div>
   </footer>
