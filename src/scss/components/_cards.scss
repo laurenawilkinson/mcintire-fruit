@@ -12,6 +12,10 @@
     }
   }
 
+  &.card--bordered {
+    border: 1px solid $grey-150;
+  }
+
   &.card--horizontal {
     display: flex;
     flex-direction: column;
@@ -21,20 +25,23 @@
     }
     
     .card__subject {
-      min-height: 200px;
-      // height: 100px; // CHANGE
+      min-width: 150px;
       width: 100%;
-      // background-color: black;
       border-radius: 20px;
-      margin-bottom: 2rem;
-
-      .MicrosoftMap > div {
+      flex: 0;
+      margin-bottom: 1.5rem;
+      
+      &,
+      .MicrosoftMap > div,
+      img {
         border-radius: 2rem;
       }
 
+      img {
+        width: 100%;
+      }
+
       @include breakpoint-up('md') {
-        max-width: 400px;
-        margin-right: 4rem;
         margin-bottom: 0;
       }
     }

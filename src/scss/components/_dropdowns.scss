@@ -3,6 +3,13 @@
   box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
   border-radius: 5px;
   z-index: 10;
+  text-align: left;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  list-style: none;
 }
 
 @mixin dropdown-item {
@@ -10,41 +17,71 @@
   text-align: left;
   cursor: pointer;
   user-select: none;
+  color: $black;
+
+  &:hover {
+    background-color: $grey-100;
+  }
 }
 
 .dropdown {
-  display: inline-block;
   position: relative;
+  border-radius: 50px;
+  border: 1px solid $grey-200;
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+
+  &.dropdown--filled {
+    background-color: $grey-150;
+    border-color: $grey-150;
+
+    .dropdown__target {
+      color: $black;
+
+      .material-icons {
+        color: $grey-500;
+      }
+    }
+  }
+
+  &.dropdown--primary {
+    .dropdown__items {
+      .dropdown__item {
+        color: $green-400;
+        &:hover {
+          background-color: $green-100;
+        }
+      }
+    }
+  }
 
   &__target {
     display: inline-flex;
     align-items: center;
+    background-color: inherit;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    color: inherit;
+    font-weight: 600;
+    width: 100%;
 
     .material-icons {
       margin-left: 0.5rem;
     }
   }
 
+  &__text {
+    flex: 1;
+    text-align: left;
+  }
+
   &__items {
-    position: absolute;
-    top: 2rem;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translate(-50%, 0);
-    background-color: white;
-    width: 180px;
-    list-style: none;
     font-size: $body-font-size;
-    color: $green-400;
     @include dropdown-items;
 
     .dropdown__item {
       @include dropdown-item;
-      
-  
-      &:hover {
-        background-color: $green-100;
-      }
     }
   }
 }
@@ -68,21 +105,11 @@
   &__options {
     list-style: none;
     padding: 0;
-    text-align: left;
-    position: absolute;
-    top: 2rem;
-    left: 0;
-    background-color: white;
-    width: 100%;
     @include dropdown-items;
   }
 
   &__option {
     @include dropdown-item;
-  
-    &:hover {
-      background-color: $grey-100;
-    }
   }
 
   .material-icons {

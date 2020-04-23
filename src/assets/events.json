@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Farm and Games!",
+    "key": "farm-and-games",
+    "category": "children",
+    "description": "Help us out on the farm, participate in fun activities and even try our homemade fruit juice!",
+    "imgSrc": "farm-and-games.png",
+    "price": "£12",
+    "pricePer": "Child",
+    "time": "9am - 3pm"
+  },
+  {
+    "name": "Monthly Plantathon",
+    "key": "plantathon",
+    "category": "families",
+    "description": "Join us in giving back to the planet by planting your very own tree or crops!",
+    "imgSrc": "plantathon.jpg",
+    "price": "Free",
+    "pricePer": "Group",
+    "time": "All Day"
+  },
+  {
+    "name": "Cider Tasting",
+    "key": "cider-tasting",
+    "category": "adults",
+    "description": "Come try our range of delicious, homemade fruit ciders, and meet other cider-lovers along the way!",
+    "imgSrc": "cider-tasting.jpg",
+    "price": "£15",
+    "pricePer": "Adult",
+    "time": "12pm - 5pm"
+  },
+  {
+    "name": "Fruity Cocktails",
+    "key": "cocktails",
+    "category": "adults",
+    "description": "Our bar puts our fruit to the test with our delicious, freshly made cocktails. You can't miss it!",
+    "imgSrc": "cocktails.jpeg",
+    "price": "£20",
+    "pricePer": "Adult",
+    "time": "5pm - 7pm"
+  },
+  {
+    "name": "Cook-along",
+    "key": "cook-along",
+    "category": "families",
+    "description": "Join our staff for a fruity cook-along! From basic recipes to complex dishes, our cooking sessions are for everyone!",
+    "imgSrc": "cook-along.jpeg",
+    "price": "£7.50",
+    "pricePer": "Group",
+    "time": "9am - 12pm"
+  }
+]

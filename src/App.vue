@@ -24,6 +24,15 @@ export default {
     region () {
       if (this.$refs.view.reload) this.$refs.view.reload();
     }
+  },
+  created () {  
+    let mapScript = document.createElement('script');
+
+    mapScript.setAttribute('src','http://www.bing.com/api/maps/mapcontrol?key=AhPwvMqYz4CjOOuY4Hdx7sUroVpuGF-vC-oZxkJRgtyLlpDns8AUwe1TdHOnUfkk');
+    mapScript.setAttribute('async', true);
+    mapScript.setAttribute('defer', true);
+
+    document.head.appendChild(mapScript);
   }
 }
 </script>

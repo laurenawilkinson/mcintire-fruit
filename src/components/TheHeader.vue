@@ -12,7 +12,7 @@
       <div class="header__nav">  
         <div 
           v-on-clickaway="hideProduceDropdown"
-          class="dropdown header__nav-link" 
+          class="dropdown dropdown--primary header__nav-link" 
           @click="showProduce = !showProduce">
           <span class="dropdown__target">Produce <i class="material-icons">keyboard_arrow_down</i></span>
           <transition mode="out-in" name="fade-down-center">

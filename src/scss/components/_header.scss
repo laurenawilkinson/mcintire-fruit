@@ -136,6 +136,17 @@
       flex: 1;
       justify-content: center;
 
+      &.dropdown {
+        border: 0;
+        .dropdown__items {
+          top: 2rem;
+          left: 50%;
+          -webkit-transform: translateX(-50%);
+          transform: translate(-50%, 0);
+          width: 180px;
+        }
+      }
+
       @include breakpoint-up('sm') {
         padding: 0 1rem;
       }

@@ -60,3 +60,26 @@
     max-width: 1200px;
   }
 }
+
+.page-section {
+  padding: 4rem 0 2rem;
+
+  + .page-section {
+    padding-top: 2rem;
+  }
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-full {
+  flex: 1;
+}
+
+.sticky {
+  &--top {
+    position: sticky;
+    top: 0;
+  }
+}

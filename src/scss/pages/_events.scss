@@ -1,0 +1,187 @@
+@mixin event-filter ($main, $text) {
+  &.event-filter--tag {
+    background-color: $main;
+    border-color: $main;
+    color: $text;
+  }
+
+  .event-filter__label {
+    background-color: transparent;
+    border-color: $main;
+    color: $text;
+  }
+
+  input:checked {
+    + .event-filter__label {
+      background-color: $main;
+    }
+  }
+} 
+
+@mixin event-filter-base {
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50px;
+  font-weight: 600;
+  align-items: center;
+
+  .material-icons {
+    margin-right: 0.5rem;
+  }
+}
+
+
+.events {
+  .events-bar {
+    display: grid;
+    
+    .static-label {
+      margin: 1rem 0;
+
+      .material-icons {
+        margin-right: 0.5rem;
+        font-size: 2.2rem;
+      }
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+    
+    @include breakpoint-up('md') {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+
+      .static-label {
+        margin: 0 0 0.5rem;
+        grid-row: 1;
+      }
+    }     
+    
+  }
+
+  .event-filters {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+    @include breakpoint-up('sm') {
+      flex-direction: row;
+    }
+  }
+
+  .event-filter {
+    margin-bottom: 1rem;
+
+    @include breakpoint-up('sm') {
+      margin-bottom: 0;
+
+      + .event-filter {
+        margin-left: 1rem;
+      }
+    }
+
+    input {
+      display: none;
+    }
+
+    &--tag {
+      display: inline-flex;
+      padding: 0.1rem 1rem;
+      font-size: $body-secondary-font-size;
+      @include event-filter-base;
+
+      .material-icons {
+        font-size: 2.1rem;
+      }
+    }
+
+    &__label {
+      background-color: transparent;
+      display: flex;
+      cursor: pointer;
+      padding: 0.5rem 1.5rem;
+      @include event-filter-base;
+
+    }
+
+    @include event-filter ($green, $green-500);
+
+    &--children {
+      @include event-filter (#66f7d0, #00503A);
+    }
+
+    &--families {
+      @include event-filter (#FFBF4B, #784D00);
+    }
+
+    &--adults {
+      @include event-filter (#ff89e5, #520e43);
+    }
+  }
+
+  .event-list {
+    display: grid;
+
+    .event-card__info {
+      font-size: $body-large-font-size;
+      color: $black;
+      font-weight: 600;
+      &-label {
+        color: $grey-500;
+        font-size: $body-secondary-font-size;
+        display: inline-flex;
+        flex-direction: column;
+        
+        + .event-card__info-label {
+          margin-left: 3rem;
+        }
+      }
+    }
+
+    .card {
+      width: 100%;
+      margin-bottom: 3rem;
+
+      &__heading {
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+
+      &__body {
+        padding: 1rem 0 0;
+      }
+
+      &__subject {
+        min-height: 150px;
+        min-width: 250px;
+      }
+    }
+
+    @include breakpoint-up('sm') {
+      .card {
+        flex-direction: row;
+
+        &__content {
+          margin-left: 2rem;
+        }
+      }
+    }
+
+    @include breakpoint-up('lg'){
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 2rem;
+
+      .card {
+        margin-bottom: 0;
+        &:nth-of-type(odd) {
+          grid-column: 1;
+        } 
+        &:nth-of-type(even) {
+          grid-column: 2;
+        }
+      }
+    }
+
+  }
+}
