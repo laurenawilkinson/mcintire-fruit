@@ -45,7 +45,28 @@
         </div>
       </div>
     </section>
-
+    <section class="section newsletter-section">
+      <div class="card card--large card--horizontal card--subject-right">
+        <div class="card__content">
+          <div class="card__header">
+            <h3 class="card__heading">Stay in touch!</h3>
+          </div>
+          <div class="card__body">
+            <template v-if="!joinedNewsletter">
+              <p>Our fortnightly newsletter will keep you in-the-know about our upcoming events, produce and farm news. It's the simplest way to keep up to date with us - you won't want to miss out!</p>
+              <label class="newsletter__signup">
+                <input class="card__input" type="email" placeholder="Enter your email..." />
+                <button class="button button--primary" type="button">Join Today</button>
+              </label>
+            </template>
+            <p v-else>Thanks for signing up! You'll receive an email from us shortly to confirm your subscription.</p>
+          </div>
+        </div>
+        <div class="card__subject">
+          <img src="images/newsletter.svg" />
+        </div>
+      </div>
+    </section>
     </div>
   </div>
 </template>
@@ -64,6 +85,7 @@ export default {
   },
   data () {
     return {
+      joinedNewsletter: false,
       loadedMap: false,
       ukPins: [
         {

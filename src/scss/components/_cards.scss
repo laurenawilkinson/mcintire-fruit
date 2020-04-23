@@ -61,6 +61,22 @@
     .card__heading {
       text-align: left;
     }
+
+    &.card--subject-right {
+      .card__content {
+        @include breakpoint-up('md') {
+          margin-left: 0;
+          margin-right: 4rem;
+        }
+      }
+
+      .card__subject {
+        @include breakpoint-up('md') {
+          margin-right: 0;
+          margin-left: 4rem;
+        }
+      }
+    }
   }
 
   &__icon {

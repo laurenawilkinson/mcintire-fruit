@@ -59,6 +59,56 @@
     padding: 5rem 0;
   }
 
+  .newsletter-section {
+    @include breakpoint-up ('md') {
+      .card.card--horizontal .card__subject {
+        margin-right: 0;
+      }
+    }
+
+    .newsletter__signup {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        margin-bottom: 0.5rem;
+      }
+
+      @include breakpoint-up('sm') {
+        flex-direction: row;
+      }
+
+      .button {
+        text-align: center;
+      }
+    }
+
+    .card {
+      p {
+        margin-bottom: 3rem;
+      }
+
+      &__input {
+        border-radius: 20px;
+        border: 2px solid $grey-200;
+        font-size: $body-large-font-size;
+        padding: 1rem 2rem;
+        flex: 1;
+        outline-color: $green;
+
+        @include breakpoint-up('sm') {
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    @include breakpoint-down('md') {
+      .card {
+        flex-direction: column-reverse;
+      }
+    }
+  }
+
   .card {
     .card__header {
       text-align: center;
