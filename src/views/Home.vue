@@ -23,23 +23,9 @@
     </section>
     <section class="section map-section">
       <div class="card card--horizontal card--large" data-aos="fade-up">
-        <div ref="map" class="card__subject"></div>
-          <!-- <bing-map ref="map" class="card__subject" :credentials="apiKey" :options="mapOptions">
-              <bing-map-layer name="uk-layer" :visible="region == 'uk'">
-                <bing-map-pushpin 
-                  v-for="pin in ukPins" 
-                  :key="pin.key"
-                  :location="pin.location" 
-                  :options="pin.options" />
-              </bing-map-layer>
-              <bing-map-layer name="us-layer" :visible="region == 'us'">
-                <bing-map-pushpin 
-                  v-for="pin in usPins" 
-                  :key="pin.key"
-                  :location="pin.location" 
-                  :options="pin.options" />
-              </bing-map-layer>
-        </!-->
+        <div ref="map" class="card__subject">
+          <img v-if="!loadedMap" :src="`images/${region}-map.png`" />
+        </div>
         <div class="card__content">
           <div class="card__header">
             <h3 class="card__heading">Come and Visit!</h3>
@@ -78,6 +64,7 @@ export default {
   },
   data () {
     return {
+      loadedMap: false,
       ukPins: [
         {
           key: 'pin1',
@@ -165,12 +152,13 @@ export default {
     },
     async loadMap () {
       if (!window.Microsoft) {
-        console.log('no map')
+        this.loadedMap = false;
         setTimeout(() => { 
           return this.loadMap();
         }, 1000)
       } else {
         await this.$nextTick();
+        this.loadedMap = true;
         let map = new window.Microsoft.Maps.Map(this.$refs.map, {
           center: new window.Microsoft.Maps.Location(this.mapOptions.center.latitude, this.mapOptions.center.longitude),
           zoom: this.mapOptions.zoom
@@ -182,8 +170,6 @@ export default {
           map.entities.push(pushpin);
         }
       }
-
-      
     }
   },
   mounted () {
