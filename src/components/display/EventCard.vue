@@ -40,3 +40,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.card {
+  transition: all 0.3s;
+}
+</style>

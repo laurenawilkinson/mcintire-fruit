@@ -32,12 +32,12 @@
       <section v-else class="page-section" v-for="month in selectedMonths" :key="month">
         <h2 class="page-section__heading">{{ month }}</h2>
         <p v-if="getEvents(month).length === 0">No events of the selected categories scheduled.</p>
-        <div class="event-list" v-else>
+        <transition-group tag="div" name="shuffle-list" class="event-list" v-else>
           <event-card 
             v-for="event in getEvents(month)" 
             :key="event.date.day"
             :event="event" />
-        </div>
+        </transition-group>
       </section>
     </div>
   </div>
@@ -178,3 +178,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.shuffle-list-move {
+  transition: transform 0.3s;
+}
+.shuffle-list-enter, .shuffle-list-leave-to{
+  transform: scale(0.9);
+  opacity: 0;
+}
+.shuffle-list-leave-active {
+  position: absolute;
+}
+</style>
