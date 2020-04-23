@@ -1,7 +1,6 @@
 <template>
   <div class="card card--bordered card--horizontal">
-    <div class="card__subject">
-      <img :src="'images/' + event.imgSrc" />
+    <div class="card__subject" :style="{ 'background-image': 'url(images/' + event.imgSrc + ')' }">
     </div>
     <div class="card__content">
       <div class="card__header">
