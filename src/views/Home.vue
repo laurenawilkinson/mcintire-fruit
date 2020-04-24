@@ -46,19 +46,20 @@
       </div>
     </section>
     <section class="section newsletter-section">
-      <div class="card card--large card--horizontal card--subject-right">
+      <div class="card card--large card--horizontal card--subject-right" data-aos="fade-up">
         <div class="card__content">
           <div class="card__header">
-            <h3 class="card__heading">Stay in touch!</h3>
+            <h3 class="card__heading">
+              {{ !joinedNewsletter ? 'Stay in touch!' : 'Speak to you soon!' }}</h3>
           </div>
           <div class="card__body">
-            <template v-if="!joinedNewsletter">
+            <form v-if="!joinedNewsletter">
               <p>Our fortnightly newsletter will keep you in-the-know about our upcoming events, produce and farm news. It's the simplest way to keep up to date with us - you won't want to miss out!</p>
               <label class="newsletter__signup">
-                <input class="card__input" type="email" placeholder="Enter your email..." />
-                <button class="button button--primary" type="button">Join Today</button>
+                <input class="card__input" v-model="newsletterEmail" type="email" placeholder="Enter your email..." @keyup.enter="validateEmail" />
+                <button class="button button--primary" type="submit" :disabled="newsletterEmail.length === 0" @click="validateEmail">Join Today</button>
               </label>
-            </template>
+            </form>
             <p v-else>Thanks for signing up! You'll receive an email from us shortly to confirm your subscription.</p>
           </div>
         </div>
@@ -153,7 +154,8 @@ export default {
           }
         }
       ],
-      apiKey: 'AhPwvMqYz4CjOOuY4Hdx7sUroVpuGF-vC-oZxkJRgtyLlpDns8AUwe1TdHOnUfkk'
+      apiKey: 'AhPwvMqYz4CjOOuY4Hdx7sUroVpuGF-vC-oZxkJRgtyLlpDns8AUwe1TdHOnUfkk',
+      newsletterEmail: ''
     }
   },
   computed: {
@@ -169,6 +171,10 @@ export default {
     }
   },
   methods: {
+    validateEmail () {
+      let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      this.joinedNewsletter = re.test(String(this.newsletterEmail).toLowerCase());
+    },
     reload () {
       this.loadMap();
     },

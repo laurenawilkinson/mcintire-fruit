@@ -84,20 +84,25 @@
     }
 
     .card {
-      p {
-        margin-bottom: 3rem;
-      }
 
-      &__input {
-        border-radius: 20px;
-        border: 2px solid $grey-200;
-        font-size: $body-large-font-size;
-        padding: 1rem 2rem;
-        flex: 1;
-        outline-color: $green;
+      .newsletter__signup {
+        margin-top: 3rem;
+        input {
+          border-radius: 20px;
+          border: 2px solid $grey-200;
+          font-size: $body-large-font-size;
+          padding: 1rem 2rem;
+          flex: 1;
+          outline-color: $green;
+  
+          @include breakpoint-up('sm') {
+            margin-right: 1rem;
+            margin-bottom: 0;
+          }
+        }
 
-        @include breakpoint-up('sm') {
-          margin-right: 1rem;
+        .button {
+          justify-content: center;
         }
       }
     }

@@ -5,6 +5,9 @@
 
   &.card--large {
     padding: 5rem;
+    p {
+      line-height: 2;
+    }
     .card__header {
       .card__heading {
         font-size: $sub-heading-font-size;
