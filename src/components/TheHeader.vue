@@ -20,16 +20,16 @@
               v-if="showProduce" 
               class="dropdown__items">
               <li class="dropdown__item">
-                <router-link to="/produce">Fruit and Veg</router-link>
+                <router-link :to="{ name: 'Produce', params:  { produceSlug: 'fruit-and-veg' } }">Fruit and Veg</router-link>
               </li>
               <li class="dropdown__item">
-                <router-link to="/produce">Fruit Juices</router-link>
+                <router-link :to="{ name: 'Produce', params:  { produceSlug: 'fruit-juice' } }">Fruit Juices</router-link>
               </li>
               <li class="dropdown__item">
-                <router-link to="/produce">Homebrew Alcohol</router-link>
+                <router-link :to="{ name: 'Produce', params:  { produceSlug: 'homebrew-alcohol' } }">Homebrew Alcohol</router-link>
               </li>
               <li class="dropdown__item">
-                <router-link to="/produce">Merchandise</router-link>
+                <router-link :to="{ name: 'Produce', params:  { produceSlug: 'merchandise' } }">Merchandise</router-link>
               </li>
             </ul>
           </transition>

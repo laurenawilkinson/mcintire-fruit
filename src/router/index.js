@@ -11,7 +11,7 @@ const routes = [
     component: Home
   },
   {
-    path: "/produce",
+    path: "/produce/:produceSlug",
     name: "Produce",
     component: () =>
       import("../views/Produce.vue")

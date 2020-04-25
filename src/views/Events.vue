@@ -29,8 +29,7 @@
     </info-bar>
     <div class="container">
       <p v-if="selectedFilters.length === 0" class="page-section">No categories selected. Please select at least one category to view events.</p>
-      <section v-else class="page-section" v-for="month in selectedMonths" :key="month">
-        <h2 class="page-section__heading">{{ month }}</h2>
+      <page-section v-else v-for="month in selectedMonths" :key="month" :title="month">
         <p v-if="getEvents(month).length === 0">No events of the selected categories scheduled.</p>
         <transition-group tag="div" name="shuffle-list" class="event-list" v-else>
           <event-card 
@@ -38,7 +37,7 @@
             :key="event.date.day"
             :event="event" />
         </transition-group>
-      </section>
+      </page-section>
     </div>
   </div>
 </template>
@@ -46,6 +45,7 @@
 <script>
 import Events from '@/assets/events.json'
 import InfoBar from '@/components/display/InfoBar.vue'
+import PageSection from '@/components/display/PageSection.vue'
 import EventCard from '@/components/display/EventCard.vue'
 import Dropdown from '@/components/inputs/Dropdown.vue'
 
@@ -102,7 +102,8 @@ export default {
   components: {
     InfoBar,
     Dropdown,
-    EventCard
+    EventCard,
+    PageSection
   },
   data () {
     return {

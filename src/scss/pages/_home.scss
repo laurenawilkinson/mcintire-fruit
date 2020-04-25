@@ -40,14 +40,24 @@
     margin-top: -30rem;
   }
 
+  .map-section {
+    .card.card--horizontal {
+      .card__subject {
+        min-height: 220px;
+      }
+      
+      .button {
+        margin-top: 1rem;
+      }
+    }
+  }
+
   .card.card--horizontal {
     .card__subject {
-      min-width: 350px;
-      min-height: 220px;
-      // width: 100%;
       margin-bottom: 3rem;
 
       @include breakpoint-up('md') {
+        min-width: 350px;
         max-width: 400px;
         margin-right: 4rem;
         margin-bottom: 0;

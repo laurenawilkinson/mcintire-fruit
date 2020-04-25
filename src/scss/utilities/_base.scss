@@ -29,6 +29,10 @@ button {
   display: inline-flex;
   align-items: center;
 
+  &--block {
+    display: flex;
+  }
+
   .material-icons {
     margin-right: 0.8rem;
   }

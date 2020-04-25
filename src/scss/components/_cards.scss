@@ -5,18 +5,34 @@
 
   &.card--large {
     padding: 5rem;
+
     p {
       line-height: 2;
     }
-    .card__header {
-      .card__heading {
-        font-size: $sub-heading-font-size;
-      }
+
+    .card__heading {
+      font-size: $sub-heading-font-size;
     }
   }
 
   &.card--bordered {
     border: 1px solid $grey-150;
+  }
+
+  &.card--slim {
+    .card__body {
+      padding: 1rem 0;
+    }
+  }
+
+  &__subject {
+    img {
+      width: 100%;
+    }
+
+    + .card__heading {
+      margin-top: 1rem;
+    }
   }
 
   &.card--horizontal {
@@ -100,11 +116,10 @@
     }
   }
 
-  &__header {
-    .card__heading {
-      font-size: $content-heading-font-size;
-      font-family: $heading-font;
-    }
+  &__heading {
+    font-size: $content-heading-font-size;
+    font-family: $heading-font;
+    font-weight: bold;
   }
 
   &__body {

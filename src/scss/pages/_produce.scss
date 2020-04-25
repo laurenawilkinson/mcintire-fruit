@@ -1,0 +1,30 @@
+.produce {
+  .page-header {
+    background-color: $green;
+    color: white;
+    padding: 2.5rem 0;
+
+    .subtitle {
+      color: $green-100;
+      font-size: $body-font-size;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .products-list {
+    display: grid;
+    grid-gap: 2rem;
+
+    @include breakpoint-up ('sm') {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include breakpoint-up ('md') {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .product-detail {
+      color: $grey-500;
+    }
+  }
+}
