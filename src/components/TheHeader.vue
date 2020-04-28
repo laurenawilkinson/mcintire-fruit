@@ -19,17 +19,15 @@
             <ul 
               v-if="showProduce" 
               class="dropdown__items">
-              <li class="dropdown__item">
-                <router-link :to="{ name: 'Produce', params:  { produceSlug: 'fruit-and-veg' } }">Fruit and Veg</router-link>
-              </li>
-              <li class="dropdown__item">
-                <router-link :to="{ name: 'Produce', params:  { produceSlug: 'fruit-juice' } }">Fruit Juices</router-link>
-              </li>
-              <li class="dropdown__item">
-                <router-link :to="{ name: 'Produce', params:  { produceSlug: 'homebrew-alcohol' } }">Homebrew Alcohol</router-link>
-              </li>
-              <li class="dropdown__item">
-                <router-link :to="{ name: 'Produce', params:  { produceSlug: 'merchandise' } }">Merchandise</router-link>
+              <li v-for="link in productLinks" :key="link.slug">
+                <router-link 
+                  class="dropdown__item"
+                  :to="{ 
+                    name: 'Produce', 
+                    params:  { 
+                      produceSlug: link.slug 
+                    } 
+                  }">{{ link.text }}</router-link>
               </li>
             </ul>
           </transition>
@@ -90,6 +88,24 @@ export default {
           value: 'us',
           text: 'United States'
         }
+      ],
+      productLinks: [
+        {
+          text: 'Fruit and Veg',
+          slug: 'fruit-and-veg'
+        },
+        {
+          text: 'Fruit Juices',
+          slug: 'fruit-juices'
+        },
+        {
+          text: 'Homebrew Alcohol',
+          slug: 'homebrew-alcohol'
+        },
+        {
+          text: 'Merchandise',
+          slug: 'merchandise'
+        },
       ]
     }
   },

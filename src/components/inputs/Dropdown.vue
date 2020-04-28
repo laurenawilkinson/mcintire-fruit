@@ -1,6 +1,11 @@
 <template>
   <div 
-    :class="{ dropdown: true, 'dropdown--filled': filled }" 
+    :class="{ 
+      dropdown: true, 
+      'dropdown--filled': filled, 
+      'dropdown--static-width': staticWidth,
+      'dropdown--right': position == 'right'
+    }" 
     v-on-clickaway="hideDropdown">
     <button 
       type="button" 
@@ -14,7 +19,10 @@
         <li 
           v-for="opt in options" 
           :key="opt.value"
-          class="dropdown__item"
+          :class="{
+            dropdown__item: true,
+            disabled: opt.disabled
+          }"
           @click="selectOption(opt.value)">{{ opt.text }}</li>
       </ul>
     </transition>
@@ -33,6 +41,14 @@ export default {
     filled: {
       type: Boolean,
       default: false
+    },
+    staticWidth: {
+      type: Boolean,
+      default: false
+    },
+    position: {
+      type: String,
+      default: 'left'
     }
   },
   data () {
@@ -50,7 +66,10 @@ export default {
       }
     },
     selectedOption () {
-      return this.options.find(x => x.value === this.value) || null;
+      return this.options.find(x => x.value === this.value) || {
+        value: this.value,
+        text: ''
+      };
     }
   },
   methods: {

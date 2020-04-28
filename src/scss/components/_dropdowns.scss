@@ -10,6 +10,8 @@
   background-color: white;
   width: 100%;
   list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 @mixin dropdown-item {
@@ -18,9 +20,17 @@
   cursor: pointer;
   user-select: none;
   color: $black;
+  display: block;
+  width: 100%;
 
   &:hover {
     background-color: $grey-100;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: $grey-150;
+    color: $grey-500;
   }
 }
 
@@ -40,6 +50,14 @@
 
       .material-icons {
         color: $grey-500;
+      }
+    }
+  }
+
+  &.dropdown--static-width {
+    @include breakpoint-up('sm') {
+      .dropdown__items {
+        width: 150px;
       }
     }
   }
@@ -75,13 +93,20 @@
     flex: 1;
     text-align: left;
   }
-
+  
   &__items {
     font-size: $body-font-size;
     @include dropdown-items;
 
     .dropdown__item {
       @include dropdown-item;
+    }
+  }
+
+  &.dropdown--right {
+    .dropdown__items {
+      left: unset;
+      right: 0;
     }
   }
 }
