@@ -10,8 +10,12 @@
     v-on-clickaway="hideDropdown">
     <button 
       type="button" 
-      class="dropdown__target button--icon-right"
+      :class="{
+        'dropdown__target button--icon-right': true,
+        'button--icon-left': icon
+      }"
       @click="showDropdown = !showDropdown">
+      <i v-if="icon" class="material-icons">{{ icon }}</i>
       <span class="dropdown__text">{{ selectedOption.text }}</span>
       <i class="material-icons">keyboard_arrow_down</i>
     </button>
@@ -41,6 +45,7 @@ export default {
     value: String,
     options: Array,
     variant: String,
+    icon: String,
     filled: {
       type: Boolean,
       default: false

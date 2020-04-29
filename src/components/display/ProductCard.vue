@@ -37,6 +37,10 @@ export default {
       type: Boolean,
       default: false
     },
+    regionKey: {
+      type: String,
+      default: 'uk'
+    },
     currentMonth: String,
     upcomingMonth: String
   },
@@ -46,10 +50,10 @@ export default {
     },
     monthTag () {
       if (!this.showMonthTag || !this.product) return;
-      const firstMonth = this.product.months[0];
-      const lastMonth = this.product.months[this.product.months.length - 1];
+      const firstMonth = this.product.regions[this.regionKey][0];
+      const lastMonth = this.product.regions[this.regionKey][this.product.regions[this.regionKey].length - 1];
 
-      if (this.product.months.length == 12)
+      if (this.product.regions[this.regionKey].length == 12)
         return {
           text: 'All Year',
           key: 'all-year'

@@ -22,7 +22,8 @@
             :key="index"
             :product="product"
             :current-month="currentMonth"
-            :upcoming-month="upcomingMonth" />
+            :upcoming-month="upcomingMonth"
+            :region-key="region" />
         </div>
       </page-section>
       <page-section>
@@ -43,6 +44,7 @@
             v-for="(product, index) in upcomingMonthlyProducts" 
             :key="index"
             :product="product"
+            :region-key="region"
             upcoming />
         </div>
       </page-section>
@@ -57,21 +59,36 @@ import PageSection from '@/components/display/PageSection.vue'
 import Dropdown from '@/components/inputs/Dropdown.vue'
 
 class Product {
-  constructor (product, months) {
+  constructor (product, regions, months) {
     this.title = product.title.rendered;
     this.type = product.acf.type; 
     this.description = product.acf.description; 
     this.image = product.acf.image;
-    this.months = this.getMonths(
-        product.month, 
-        months);
+    this.regions = this.getRegions(product.region, regions, product.acf, months)
+    // this.months = this.getMonths(
+    //     product.month, 
+    //     months);
+  }
+
+  getRegions (productRegions, regions, acf, allMonths) {
+    let r = {};
+
+    for (const region of regions) {
+      const key = region.name.toLowerCase();
+      let filteredMonths = acf[key + '-months'] || [];
+      // console.log(filteredMonths)
+      r[key] = this.getMonths(filteredMonths, allMonths)
+    }
+
+    return r;
   }
 
   getMonths (productMonths, allMonths) {    
     let months = [];
     
     productMonths.forEach(m => {
-      const found = allMonths.find(x => x.id === m);
+      const found = allMonths.find(x => x.name == m);
+      console.log(found);
       if (found !== undefined)
         months.push({ 
           name: found.name,
@@ -95,6 +112,7 @@ export default {
     ProductCard,
     Dropdown
   },
+  props: ['region'],
   data () {
     return {
       products: null,
@@ -104,6 +122,7 @@ export default {
       productsLink: null,
       loadingProducts: true,
       monthsLink: 'http://localhost/mcintire-fruit/wp-json/wp/v2/month?per_page=12',
+      regionsLink: 'http://localhost/mcintire-fruit/wp-json/wp/v2/region',
       productLinks: [
         {
           text: 'Fruit and Veg',
@@ -153,7 +172,7 @@ export default {
       if (this.products === null) return [];
 
       return this.products
-        .filter(x => x.months.includes(month) && !x.months.includes(disregardedMonth))
+        .filter(x => x.regions[this.region].length > 0 && x.regions[this.region].includes(month) && !x.regions[this.region].includes(disregardedMonth))
         .sort((a, b) => a.title.localeCompare(b.title));
     },
     async fetchData () {
@@ -162,7 +181,7 @@ export default {
       await fetch(this.productsLink)
         .then(data => data.json())
         .then(data => { 
-          this.products = data.map(x => new Product(x, this.months));
+          this.products = data.map(x => new Product(x, this.regions, this.months));
           this.loadingProducts = false;
         })
         .catch(err => console.error(err))
@@ -187,6 +206,19 @@ export default {
                 : a.monthKey - b.monthKey)
         })
         .catch(err => console.error(err))
+    },
+    async fetchRegions () {
+      await fetch(this.regionsLink)
+        .then(data => data.json())
+        .then(data => { 
+          this.regions = data.map(x => {
+            return {
+              id: x.id,
+              name: x.name
+            }
+          })
+        })
+        .catch(err => console.error(err))
     }
   },
   async created () {
@@ -194,7 +226,7 @@ export default {
     dateNow.setMonth(dateNow.getMonth() + 1, 1);
     this.upcomingMonth = new Date(dateNow).toLocaleString('en-us', { month: 'long' });
 
-    await this.fetchMonths()
+    await Promise.all([this.fetchMonths(), this.fetchRegions()])
     await this.fetchData()
   }
 }
