@@ -26,5 +26,46 @@
     .product-detail {
       color: $grey-500;
     }
+    
+    .product-card {
+      .card__subject {
+        height: 200px;
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    }
+
+    .product-card--upcoming {
+      .card__subject {
+        position: relative;
+
+        span {
+          color: white;
+          text-transform: uppercase;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          letter-spacing: 0.2rem;
+          width: 100%;
+          font-size: 2rem;
+          text-align: center;
+          font-weight: 600;
+        }
+
+        &:before {
+          content: '';
+          text-transform: uppercase;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: inherit;
+          background-color: rgba(black, 0.7);
+        }
+      }
+    }
   }
 }

@@ -86,9 +86,7 @@
     }
 
     &--tag {
-      display: inline-flex;
-      padding: 0.1rem 1rem;
-      font-size: $body-secondary-font-size;
+      @include tag;
       @include event-filter-base;
 
       .material-icons {

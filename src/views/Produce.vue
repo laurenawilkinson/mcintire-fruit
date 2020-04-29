@@ -3,7 +3,7 @@
     <div class="page-header">
       <div class="container">
         <h3 class="subtitle">Pick-Your-Own Produce</h3>
-        <h1>{{ $route.params.produceSlug }}</h1>
+        <h1>{{ title }}</h1>
       </div>
     </div>
     <info-bar>
@@ -14,27 +14,36 @@
     </info-bar>
     <div class="container">
       <page-section :title="currentMonth">
-        <div class="products-list">
+        <p v-if="loadingProducts">Loading products...</p>
+        <p v-else-if="currentMonthlyProducts.length == 0">No products available for this month.</p>
+        <div v-else class="products-list">
           <product-card 
             v-for="(product, index) in currentMonthlyProducts" 
             :key="index"
-            :product="product" />
+            :product="product"
+            :current-month="currentMonth"
+            :upcoming-month="upcomingMonth" />
         </div>
       </page-section>
       <page-section>
         <template v-slot:header>
           <h2 class="page-section__heading">Upcoming in {{ upcomingMonth }}</h2>
           <dropdown 
+            v-if="monthOptions.length > 0"
             v-model="upcomingMonth" 
             :options="monthOptions" 
             static-width 
+            show-active
             position="right" />
         </template>
-        <div class="products-list">
+        <p v-if="loadingProducts">Loading products...</p>
+        <p v-else-if="upcomingMonthlyProducts.length == 0">No new products available for this month.</p>
+        <div v-else class="products-list">
           <product-card 
             v-for="(product, index) in upcomingMonthlyProducts" 
             :key="index"
-            :product="product" />
+            :product="product"
+            upcoming />
         </div>
       </page-section>
     </div>
@@ -64,10 +73,17 @@ class Product {
     productMonths.forEach(m => {
       const found = allMonths.find(x => x.id === m);
       if (found !== undefined)
-        months.push(found.name)
+        months.push({ 
+          name: found.name,
+          monthKey: found.monthKey
+        })
     });
 
-    return months;
+    return months
+      .sort((a, b) => isNaN(a.monthKey) || isNaN(b.monthKey)
+        ? 0
+        : a.monthKey - b.monthKey)
+      .map(x => x.name)
   }
 }
 
@@ -86,18 +102,42 @@ export default {
       currentMonth: new Date().toLocaleString('en-us', { month: 'long' }),
       upcomingMonth: null,
       productsLink: null,
-      monthsLink: 'http://localhost/mcintire-fruit/wp-json/wp/v2/month?per_page=12'
+      loadingProducts: true,
+      monthsLink: 'http://localhost/mcintire-fruit/wp-json/wp/v2/month?per_page=12',
+      productLinks: [
+        {
+          text: 'Fruit and Veg',
+          slug: 'fruit-and-veg'
+        },
+        {
+          text: 'Fruit Juices',
+          slug: 'fruit-juices'
+        },
+        {
+          text: 'Homebrew Alcohol',
+          slug: 'homebrew-alcohol'
+        },
+        {
+          text: 'Merchandise',
+          slug: 'merchandise'
+        },
+      ]
     }
   },
   watch: {
     '$route': 'fetchData'
   },
   computed: {
+    title () {
+      const found = this.productLinks.find(x => x.slug == this.$route.params.produceSlug);
+
+      return found ? found.text : 'Produce';
+    },
     currentMonthlyProducts () {
       return this.getMonthlyProducts(this.currentMonth);
     },
     upcomingMonthlyProducts () {
-      return this.getMonthlyProducts(this.upcomingMonth, this.currentMonth)
+      return this.getMonthlyProducts(this.upcomingMonth)
     },
     monthOptions () {
       return this.months.map(x => {
@@ -113,14 +153,17 @@ export default {
       if (this.products === null) return [];
 
       return this.products
-        .filter(x => x.months.includes(month) && !x.months.includes(disregardedMonth));
+        .filter(x => x.months.includes(month) && !x.months.includes(disregardedMonth))
+        .sort((a, b) => a.title.localeCompare(b.title));
     },
     async fetchData () {
       this.productsLink = `http://localhost/mcintire-fruit/wp-json/wp/v2/products?type=${this.$route.params.produceSlug}`;
+      this.loadingProducts = true;
       await fetch(this.productsLink)
         .then(data => data.json())
         .then(data => { 
           this.products = data.map(x => new Product(x, this.months));
+          this.loadingProducts = false;
         })
         .catch(err => console.error(err))
     },
@@ -130,19 +173,18 @@ export default {
         .then(data => { 
           this.months = data
             .map(x => {
+              let key = new Date(x.name + ' 1 2020').getMonth();
+
               return {
                 id: x.id,
-                name: x.name
+                name: x.name,
+                monthKey: key
               }
             })
-            .sort((a, b) => {
-              let aNumber = new Date(a.name + ' 1 2020').getMonth();
-              let bNumber = new Date(b.name + ' 1 2020').getMonth();
-
-              return isNaN(aNumber) || isNaN(bNumber)
+            .sort((a, b) => 
+              isNaN(a.monthKey) || isNaN(b.monthKey)
                 ? 0
-                : aNumber - bNumber;
-            })
+                : a.monthKey - b.monthKey)
         })
         .catch(err => console.error(err))
     }

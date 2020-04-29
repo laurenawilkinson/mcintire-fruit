@@ -1,0 +1,27 @@
+@mixin tag {
+  display: inline-flex;
+  padding: 0.1rem 1rem;
+  font-size: $body-secondary-font-size;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.tag {
+  @include tag;
+  background-color: $grey-150;
+
+  &--primary {
+    background-color: $green-250;
+    color: $green-500;
+  }
+
+  &--danger {
+    background-color: $red;
+    color: $red-500;
+  }
+
+  &--warning {
+    background-color: $orange-100;
+    color: $orange-500;
+  }
+}

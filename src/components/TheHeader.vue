@@ -25,7 +25,7 @@
                   :to="{ 
                     name: 'Produce', 
                     params:  { 
-                      produceSlug: link.slug 
+                      produceSlug: link.slug
                     } 
                   }">{{ link.text }}</router-link>
               </li>
@@ -56,8 +56,11 @@
               <li 
                 v-for="opt in regionOptions" 
                 :key="opt.value"
-                class="region-select__option"
-                @click="headerRegion = opt.value">{{ opt.text }}</li>
+                :class="{
+                  'region-select__option': true,
+                  active: opt.value == headerRegion
+                }"
+                @click="setActiveRegion(opt.value)">{{ opt.text }}</li>
             </ul>
           </transition>
         </div>
@@ -128,6 +131,10 @@ export default {
     },
     hideRegionSelect () {
       this.showRegionSelect = false;
+    },
+    setActiveRegion (value) {
+      this.headerRegion = value;
+      this.hideRegionSelect();
     }
   }
 };

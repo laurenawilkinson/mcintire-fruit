@@ -29,8 +29,13 @@
 
   &.disabled {
     pointer-events: none;
-    background-color: $grey-150;
+    background-color: $grey-200;
     color: $grey-500;
+  }
+
+  &.active {
+    background-color: $grey-150;
+    font-weight: 600;
   }
 }
 
@@ -54,6 +59,10 @@
     }
   }
 
+  .material-icons { 
+    color: $green;
+  }
+
   &.dropdown--static-width {
     @include breakpoint-up('sm') {
       .dropdown__items {
@@ -68,6 +77,10 @@
         color: $green-400;
         &:hover {
           background-color: $green-100;
+        }
+
+        &.active {
+          background-color: $green-200;
         }
       }
     }

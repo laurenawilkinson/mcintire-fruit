@@ -4,7 +4,8 @@
       dropdown: true, 
       'dropdown--filled': filled, 
       'dropdown--static-width': staticWidth,
-      'dropdown--right': position == 'right'
+      'dropdown--right': position == 'right',
+      'dropdown--primary': variant == 'primary'
     }" 
     v-on-clickaway="hideDropdown">
     <button 
@@ -21,7 +22,8 @@
           :key="opt.value"
           :class="{
             dropdown__item: true,
-            disabled: opt.disabled
+            disabled: opt.disabled,
+            active: showActive && opt.value == value
           }"
           @click="selectOption(opt.value)">{{ opt.text }}</li>
       </ul>
@@ -38,11 +40,16 @@ export default {
   props: {
     value: String,
     options: Array,
+    variant: String,
     filled: {
       type: Boolean,
       default: false
     },
     staticWidth: {
+      type: Boolean,
+      default: false
+    },
+    showActive: {
       type: Boolean,
       default: false
     },
