@@ -1,17 +1,33 @@
-.fade-down-center-enter-active, .fade-down-center-leave-active {
-  transition: transform .25s, opacity .25s;  
-  transform: translate(-50%, 0);
-}
-.fade-down-center-enter, .fade-down-center-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transform: translate(-50%, -1rem) !important;
-  opacity: 0;
-}
-
-.fade-down-enter-active, .fade-down-leave-active {
+@mixin fade-down-active {
   transition: transform .25s, opacity .25s;  
   transform: translateY(0);
 }
-.fade-down-enter, .fade-down-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+@mixin fade-down-enter-leave {
   transform: translateY(-1rem) !important;
   opacity: 0;
+}
+
+.fade-down-center-enter-active, .fade-down-center-leave-active {
+  @include fade-down-active;
+  @include breakpoint-up('sm') {
+    transition: transform .25s, opacity .25s;  
+    transform: translate(-50%, 0);
+  }
+}
+.fade-down-center-enter, .fade-down-center-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  
+  @include fade-down-enter-leave;
+
+  @include breakpoint-up('sm') {
+    transform: translate(-50%, -1rem) !important;
+    opacity: 0;
+  }
+}
+
+.fade-down-enter-active, .fade-down-leave-active {
+  @include fade-down-active;
+}
+.fade-down-enter, .fade-down-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  @include fade-down-enter-leave;
 }
