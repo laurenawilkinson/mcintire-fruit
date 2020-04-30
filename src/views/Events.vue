@@ -176,6 +176,7 @@ export default {
       new DatedEvent('cocktails', 'June', 'Saturday 13th'),
       new DatedEvent('farm-and-games', 'August', 'Friday 7th'),
     ]
+    window.scrollTo(0,0)
   }
 }
 </script>

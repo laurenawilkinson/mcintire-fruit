@@ -76,7 +76,6 @@ class Product {
     for (const region of regions) {
       const key = region.name.toLowerCase();
       let filteredMonths = acf[key + '-months'] || [];
-      // console.log(filteredMonths)
       r[key] = this.getMonths(filteredMonths, allMonths)
     }
 
@@ -88,7 +87,6 @@ class Product {
     
     productMonths.forEach(m => {
       const found = allMonths.find(x => x.name == m);
-      console.log(found);
       if (found !== undefined)
         months.push({ 
           name: found.name,
@@ -228,6 +226,9 @@ export default {
 
     await Promise.all([this.fetchMonths(), this.fetchRegions()])
     await this.fetchData()
+  },
+  mounted () {
+    window.scrollTo(0,0)
   }
 }
 </script>

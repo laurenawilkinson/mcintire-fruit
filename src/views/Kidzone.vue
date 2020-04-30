@@ -124,6 +124,9 @@ export default {
     currentActiveSection () {
       return this.plateSections[this.activeSection];
     }
+  },
+  mounted () {
+    window.scrollTo(0,0)
   }
 }
 </script>

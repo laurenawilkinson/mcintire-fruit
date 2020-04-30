@@ -126,7 +126,7 @@ export default {
           body: "We happily invite you to our farms to hand-pick your own fresh fruits and veggies. Browse our available seasonal produce!",
           button: {
             text: 'View Current Produce',
-            href: '/produce'
+            href: '/produce/fruit-and-veg'
           }
         },
         {
@@ -201,6 +201,7 @@ export default {
     }
   },
   mounted () {
+    window.scrollTo(0,0)
     this.loadMap();
   }
 };
