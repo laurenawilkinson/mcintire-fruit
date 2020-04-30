@@ -6,16 +6,16 @@
         <h1>{{ title }}</h1>
       </div>
     </div>
-    <info-bar>
+    <info-bar v-if="!merchPage">
       <span class="text-with-icon text-with-icon--block">
         <i class="material-icons">info</i>
         <span>To ensure we provide the freshest, most tastiest produce possible, certain produce may only be available during specific seasons.</span> 
       </span>
     </info-bar>
     <div class="container">
-      <page-section :title="currentMonth">
+      <page-section :title="merchPage ? 'Currently Available' : currentMonth">
         <p v-if="loadingProducts">Loading products...</p>
-        <p v-else-if="currentMonthlyProducts.length == 0">No products available for this month.</p>
+        <p v-else-if="currentMonthlyProducts.length == 0">No products available.</p>
         <div v-else class="products-list">
           <product-card 
             v-for="(product, index) in currentMonthlyProducts" 
@@ -23,10 +23,11 @@
             :product="product"
             :current-month="currentMonth"
             :upcoming-month="upcomingMonth"
+            :image-contain="merchPage"
             :region-key="region" />
         </div>
       </page-section>
-      <page-section>
+      <page-section v-if="$route.params.produceSlug !== 'merchandise'">
         <template v-slot:header>
           <h2 class="page-section__heading">Upcoming in {{ upcomingMonth }}</h2>
           <dropdown 
@@ -65,9 +66,6 @@ class Product {
     this.description = product.acf.description; 
     this.image = product.acf.image;
     this.regions = this.getRegions(product.region, regions, product.acf, months)
-    // this.months = this.getMonths(
-    //     product.month, 
-    //     months);
   }
 
   getRegions (productRegions, regions, acf, allMonths) {
@@ -145,6 +143,9 @@ export default {
     '$route': 'fetchData'
   },
   computed: {
+    merchPage () {
+      return this.$route.params.produceSlug == 'merchandise';
+    },
     title () {
       const found = this.productLinks.find(x => x.slug == this.$route.params.produceSlug);
 

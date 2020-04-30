@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <alcohol-overlay 
+      v-if="$route.params.produceSlug == 'homebrew-alcohol'"
+      v-model="showAlcoholOverlay" />
     <the-header :region.sync="region" />
     <router-view :region.sync="region" ref="view" />
     <the-footer />
@@ -9,20 +12,33 @@
 <script>
 import TheHeader from '@/components/TheHeader.vue'
 import TheFooter from '@/components/TheFooter.vue'
+import AlcoholOverlay from '@/components/AlcoholOverlay.vue'
+
 export default {
   name: 'App',
   components: {
     TheHeader,
-    TheFooter
+    TheFooter,
+    AlcoholOverlay
   },
   data () {
     return {
-      region: 'uk'
+      region: 'uk',
+      showAlcoholOverlay: false
     }
   },
   watch: {
     region () {
       if (this.$refs.view.reload) this.$refs.view.reload();
+    },
+    $route () {
+      if (this.$route.params.produceSlug == 'homebrew-alcohol') {
+        document.body.classList.add('has-overlay')
+        this.showAlcoholOverlay = true;
+      } else {
+        document.body.classList.remove('has-overlay')
+        this.showAlcoholOverlay = false;
+      }
     }
   },
   created () {  

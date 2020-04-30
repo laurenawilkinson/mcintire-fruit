@@ -5,7 +5,8 @@
       'product-card--upcoming': upcoming
     }">
     <div class="card__subject" :style="{
-      'background-image': 'url(../images/cocktails.jpeg)'
+      'background-image': 'url(' + product.image + ')',
+      'background-size': imageContain ? 'contain' : 'cover'
       }">
       <span v-if="upcoming">Coming soon</span>
     </div>
@@ -13,7 +14,7 @@
       {{ product.title }}
     </h3>
     <div class="card__body product-detail" v-if="product.description || showMonthTag">
-      {{ product.description }}
+      <p v-if="product.description">{{ product.description }}</p>
       <span 
         v-if="showMonthTag" 
         :class="{
@@ -34,6 +35,10 @@ export default {
   props: {
     product: Object,
     upcoming: {
+      type: Boolean,
+      default: false
+    },
+    imageContain: {
       type: Boolean,
       default: false
     },
