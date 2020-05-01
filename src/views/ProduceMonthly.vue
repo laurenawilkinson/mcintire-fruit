@@ -8,7 +8,7 @@
   </info-bar>
   <div class="container">
     <page-section :title="currentMonth">
-      <p v-if="loadingProducts">Loading products...</p>
+      <loading-spinner v-if="loadingProducts" />
       <p v-else-if="currentMonthlyProducts.length == 0">No products available.</p>
       <div v-else class="products-list">
         <product-card 
@@ -31,7 +31,7 @@
           show-active
           position="right" />
       </template>
-      <p v-if="loadingProducts">Loading products...</p>
+      <loading-spinner v-if="loadingProducts" />
       <p v-else-if="upcomingMonthlyProducts.length == 0">No new products available for this month.</p>
       <div v-else class="products-list">
         <product-card 
@@ -51,6 +51,7 @@ import InfoBar from '@/components/display/InfoBar.vue'
 import ProductCard from '@/components/display/ProductCard.vue'
 import PageSection from '@/components/display/PageSection.vue'
 import Dropdown from '@/components/inputs/Dropdown.vue'
+import LoadingSpinner from '@/components/display/LoadingSpinner.vue'
 
 export default {
   name: 'ProduceMonthly',
@@ -58,7 +59,8 @@ export default {
     ProductCard,
     PageSection,
     Dropdown,
-    InfoBar
+    InfoBar,
+    LoadingSpinner
   },
   props: {
     currentMonthlyProducts: Array,

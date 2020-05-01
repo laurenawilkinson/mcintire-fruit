@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <page-section title="Currently Available">
-      <p v-if="loadingProducts">Loading products...</p>
+      <loading-spinner v-if="loadingProducts" />
       <p v-else-if="products.length == 0">No products available.</p>
       <div v-else class="products-list">
         <product-card 
@@ -18,6 +18,7 @@
 <script>
 import ProductCard from '@/components/display/ProductCard.vue'
 import PageSection from '@/components/display/PageSection.vue'
+import LoadingSpinner from '@/components/display/LoadingSpinner.vue'
 
 export default {
   name: 'ProduceBasic',
@@ -29,7 +30,8 @@ export default {
   },
   components: {
     ProductCard,
-    PageSection
+    PageSection,
+    LoadingSpinner
   }
 }
 </script>

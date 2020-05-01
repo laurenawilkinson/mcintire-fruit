@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <page-section v-if="loadingProducts || noProducts">
-      <p v-if="loadingProducts">Loading products...</p>
+      <loading-spinner v-if="loadingProducts" />
       <p v-else-if="noProducts">No products available.</p>
     </page-section>
     <div v-for="(category, index) in categories" :key="index">
@@ -23,12 +23,14 @@
 <script>
 import ProductCard from '@/components/display/ProductCard.vue'
 import PageSection from '@/components/display/PageSection.vue'
+import LoadingSpinner from '@/components/display/LoadingSpinner.vue'
 
 export default {
   name: 'ProduceCategories',
   components: {
     PageSection,
-    ProductCard
+    ProductCard,
+    LoadingSpinner
   },
   props: {
     categoriesLink: String,
