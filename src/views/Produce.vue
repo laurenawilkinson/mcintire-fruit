@@ -10,7 +10,8 @@
       v-if="pageTypeEquals('merchandise') || pageTypeEquals('fruit-juices')"
       :loading-products="loadingProducts"
       :products="currentProducts"
-      :region="region" />
+      :region="region"
+      :image-contain="pageTypeEquals('merchandise')" />
     <produce-categories
       v-if="pageTypeEquals('homebrew-alcohol')"
       :loading-products="loadingProducts"
@@ -138,7 +139,9 @@ export default {
       return found ? found.text : 'Produce';
     },
     currentProducts () {
-      return this.products.filter(x => x.productRegions.includes(this.region));
+      return this.products !== null ? 
+        this.products.filter(x => x.productRegions.includes(this.region)) :
+        [];
     },
     currentMonthlyProducts () {
       return this.getMonthlyProducts(this.currentMonth);
@@ -147,12 +150,14 @@ export default {
       return this.getMonthlyProducts(this.upcomingMonth)
     },
     monthOptions () {
-      return this.months.map(x => {
+      return this.months !== null ?
+        this.months.map(x => {
           return {
             text: x.name,
             value: x.name
           }
         }).filter(x => x.text !== this.currentMonth)
+        : [];
     }
   },
   methods: {

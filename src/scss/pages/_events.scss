@@ -63,22 +63,19 @@
   .event-filters {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    
-    @include breakpoint-up('sm') {
-      flex-direction: row;
-    }
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .event-filter {
     margin-bottom: 1rem;
 
+    + .event-filter {
+      margin-left: 1rem;
+    }
+
     @include breakpoint-up('sm') {
       margin-bottom: 0;
-
-      + .event-filter {
-        margin-left: 1rem;
-      }
     }
 
     input {

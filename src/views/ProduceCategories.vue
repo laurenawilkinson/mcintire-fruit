@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     getProducts (category) {
-      return this.products.filter(x => x.alcoholType == category);
+      return this.products == null ? [] : this.products.filter(x => x.alcoholType == category);
     }
   },
   async mounted () {

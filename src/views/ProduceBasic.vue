@@ -8,7 +8,7 @@
           v-for="(product, index) in products" 
           :key="index"
           :product="product"
-          :image-contain="true"
+          :image-contain="imageContain"
           :region-key="region" />
       </div>
     </page-section>
@@ -24,7 +24,8 @@ export default {
   props: {
     products: Array,
     loadingProducts: Boolean,
-    region: String
+    region: String,
+    imageContain: Boolean
   },
   components: {
     ProductCard,
