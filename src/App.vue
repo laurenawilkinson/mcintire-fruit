@@ -32,13 +32,10 @@ export default {
       if (this.$refs.view.reload) this.$refs.view.reload();
     },
     $route () {
-      if (this.$route.params.produceSlug == 'homebrew-alcohol') {
-        document.body.classList.add('has-overlay')
-        this.showAlcoholOverlay = true;
-      } else {
-        document.body.classList.remove('has-overlay')
-        this.showAlcoholOverlay = false;
-      }
+      this.showAlcoholOverlay = this.$route.params.produceSlug == 'homebrew-alcohol';
+    },
+    showAlcoholOverlay (value) {
+      value ? document.body.classList.add('has-overlay') : document.body.classList.remove('has-overlay')
     }
   },
   created () {  

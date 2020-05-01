@@ -6,58 +6,35 @@
         <h1>{{ title }}</h1>
       </div>
     </div>
-    <info-bar v-if="!merchPage">
-      <span class="text-with-icon text-with-icon--block">
-        <i class="material-icons">info</i>
-        <span>To ensure we provide the freshest, most tastiest produce possible, certain produce may only be available during specific seasons.</span> 
-      </span>
-    </info-bar>
-    <div class="container">
-      <page-section :title="merchPage ? 'Currently Available' : currentMonth">
-        <p v-if="loadingProducts">Loading products...</p>
-        <p v-else-if="currentMonthlyProducts.length == 0">No products available.</p>
-        <div v-else class="products-list">
-          <product-card 
-            v-for="(product, index) in currentMonthlyProducts" 
-            :key="index"
-            :product="product"
-            :current-month="currentMonth"
-            :upcoming-month="upcomingMonth"
-            :image-contain="merchPage"
-            :region-key="region" />
-        </div>
-      </page-section>
-      <page-section v-if="$route.params.produceSlug !== 'merchandise'">
-        <template v-slot:header>
-          <h2 class="page-section__heading">Upcoming in {{ upcomingMonth }}</h2>
-          <dropdown 
-            v-if="monthOptions.length > 0"
-            v-model="upcomingMonth" 
-            :options="monthOptions" 
-            static-width 
-            show-active
-            position="right" />
-        </template>
-        <p v-if="loadingProducts">Loading products...</p>
-        <p v-else-if="upcomingMonthlyProducts.length == 0">No new products available for this month.</p>
-        <div v-else class="products-list">
-          <product-card 
-            v-for="(product, index) in upcomingMonthlyProducts" 
-            :key="index"
-            :product="product"
-            :region-key="region"
-            upcoming />
-        </div>
-      </page-section>
-    </div>
+    <produce-basic
+      v-if="pageTypeEquals('merchandise') || pageTypeEquals('fruit-juices')"
+      :loading-products="loadingProducts"
+      :products="currentProducts"
+      :region="region" />
+    <produce-categories
+      v-if="pageTypeEquals('homebrew-alcohol')"
+      :loading-products="loadingProducts"
+      :products="currentProducts"
+      :region="region"
+      :categories-link="alcoholCategoriesLink" />
+    <produce-monthly
+      v-if="pageTypeEquals('fruit-and-veg')"
+      v-bind="{
+        loadingProducts,
+        currentMonthlyProducts,
+        upcomingMonthlyProducts,
+        currentMonth,
+        months,
+        region  
+      }"
+      :upcoming-month.sync="upcomingMonth" />
   </div>
 </template>
 
 <script>
-import InfoBar from '@/components/display/InfoBar.vue'
-import ProductCard from '@/components/display/ProductCard.vue'
-import PageSection from '@/components/display/PageSection.vue'
-import Dropdown from '@/components/inputs/Dropdown.vue'
+import ProduceBasic from '@/views/ProduceBasic.vue'
+import ProduceMonthly from '@/views/ProduceMonthly.vue'
+import ProduceCategories from '@/views/ProduceCategories.vue'
 
 class Product {
   constructor (product, regions, months) {
@@ -65,7 +42,18 @@ class Product {
     this.type = product.acf.type; 
     this.description = product.acf.description; 
     this.image = product.acf.image;
-    this.regions = this.getRegions(product.region, regions, product.acf, months)
+    this.productRegions = this.getProductRegions(product.region, regions);
+    this.regions = this.getRegions(product.region, regions, product.acf, months);
+
+    if (this.type == 'homebrew-alcohol')
+      this.alcoholType = product.alcohol_type[0];
+  }
+
+  getProductRegions (productRegions, allRegions) {
+    return productRegions.map(r => {
+      const found = allRegions.find(x => x.id == r);
+      return found.name.toLowerCase() || null;
+    })
   }
 
   getRegions (productRegions, regions, acf, allMonths) {
@@ -103,21 +91,22 @@ class Product {
 export default {
   name: 'Produce',
   components: {
-    InfoBar,
-    PageSection,
-    ProductCard,
-    Dropdown
+    ProduceBasic,
+    ProduceMonthly,
+    ProduceCategories
   },
   props: ['region'],
   data () {
     return {
       products: null,
       months: [],
+      alcoholCategories: [],
       currentMonth: new Date().toLocaleString('en-us', { month: 'long' }),
       upcomingMonth: null,
       productsLink: null,
       loadingProducts: true,
       monthsLink: 'http://localhost/mcintire-fruit/wp-json/wp/v2/month?per_page=12',
+      alcoholCategoriesLink: 'http://localhost/mcintire-fruit/wp-json/wp/v2/alcohol_type',
       regionsLink: 'http://localhost/mcintire-fruit/wp-json/wp/v2/region',
       productLinks: [
         {
@@ -143,13 +132,13 @@ export default {
     '$route': 'fetchData'
   },
   computed: {
-    merchPage () {
-      return this.$route.params.produceSlug == 'merchandise';
-    },
     title () {
       const found = this.productLinks.find(x => x.slug == this.$route.params.produceSlug);
 
       return found ? found.text : 'Produce';
+    },
+    currentProducts () {
+      return this.products.filter(x => x.productRegions.includes(this.region));
     },
     currentMonthlyProducts () {
       return this.getMonthlyProducts(this.currentMonth);
@@ -167,6 +156,9 @@ export default {
     }
   },
   methods: {
+    pageTypeEquals (slug) {
+      return this.$route.params.produceSlug == slug;
+    },
     getMonthlyProducts (month, disregardedMonth = null) {
       if (this.products === null) return [];
 

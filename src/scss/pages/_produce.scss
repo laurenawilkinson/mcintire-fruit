@@ -25,6 +25,9 @@
 
     .product-detail {
       color: $grey-500;
+      p {
+        margin: 0;
+      }
     }
     
     .product-card {
