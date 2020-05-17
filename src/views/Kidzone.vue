@@ -44,6 +44,7 @@
               :class="{ 
                 'kidzone-plate__section kidzone-plate__carbs': true, 
                 'kidzone-plate__section--active': activeSection === 'carbs' }"
+              alt="Pie Chart Segment (carbs)"
               @mouseover="activeSection = 'carbs'"
               @click="activeSection = 'carbs'" />
             <img 
@@ -51,6 +52,7 @@
               :class="{ 
                 'kidzone-plate__section kidzone-plate__dairy': true, 
                 'kidzone-plate__section--active': activeSection === 'dairy' }"
+              alt="Pie Chart Segment (carbs)"
               @mouseover="activeSection = 'dairy'"
               @click="activeSection = 'dairy'" />
             <img 
@@ -58,6 +60,7 @@
               :class="{ 
                 'kidzone-plate__section kidzone-plate__fats': true, 
                 'kidzone-plate__section--active': activeSection === 'fats' }"
+              alt="Pie Chart Segment (carbs)"
               @mouseover="activeSection = 'fats'"
               @click="activeSection = 'fats'" />
             <img 
@@ -66,6 +69,7 @@
               :class="{ 
                 'kidzone-plate__section kidzone-plate__meat': true, 
                 'kidzone-plate__section--active': activeSection === 'meat' }"
+              alt="Pie Chart Segment (carbs)"
               @mouseover="activeSection = 'meat'"
               @click="activeSection = 'meat'" />
             <img 
@@ -73,6 +77,7 @@
               :class="{ 
                 'kidzone-plate__section kidzone-plate__fruitveg': true, 
                 'kidzone-plate__section--active': activeSection === 'fruitveg' }"
+              alt="Pie Chart Segment (carbs)"
               @mouseover="activeSection = 'fruitveg'"
               @click="activeSection = 'fruitveg'" />
           </div>

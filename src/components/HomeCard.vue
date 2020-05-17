@@ -7,7 +7,7 @@
           class="material-icons">
           {{ card.icon.src }}
         </i>
-        <img v-else :src="card.icon.src" />
+        <img v-else :src="card.icon.src" :alt="card.title" />
       </div>
       <h3 class="card__heading">
         {{ card.title }}

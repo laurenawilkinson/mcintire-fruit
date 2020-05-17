@@ -24,7 +24,7 @@
     <section class="section map-section">
       <div class="card card--horizontal card--large" data-aos="fade-up">
         <div ref="map" class="card__subject">
-          <img v-if="!loadedMap" :src="`images/${region}-map.png`" />
+          <img v-if="!loadedMap" :src="`images/${region}-map.png`" alt="McInitre Fruit Map" />
         </div>
         <div class="card__content">
           <div class="card__header">
@@ -64,7 +64,7 @@
           </div>
         </div>
         <div class="card__subject">
-          <img src="images/newsletter.svg" />
+          <img src="images/newsletter.svg" alt="Newsletter Image" />
         </div>
       </div>
     </section>
