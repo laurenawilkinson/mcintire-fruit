@@ -179,25 +179,25 @@ export default {
       this.loadMap();
     },
     async loadMap () {
-      // if (!window.Microsoft) {
-      //   this.loadedMap = false;
-      //   setTimeout(() => { 
-      //     return this.loadMap();
-      //   }, 1000)
-      // } else {
-      //   await this.$nextTick();
-      //   this.loadedMap = true;
-      //   let map = new window.Microsoft.Maps.Map(this.$refs.map, {
-      //     center: new window.Microsoft.Maps.Location(this.mapOptions.center.latitude, this.mapOptions.center.longitude),
-      //     zoom: this.mapOptions.zoom
-      //   });
-      //   for (const pin of this.mapOptions.pins) {
-      //     let pushpin = new window.Microsoft.Maps.Pushpin(
-      //       new window.Microsoft.Maps.Location(pin.location.latitude, pin.location.longitude),
-      //       { title: pin.title });
-      //     map.entities.push(pushpin);
-      //   }
-      // }
+      if (!window.Microsoft) {
+        this.loadedMap = false;
+        setTimeout(() => { 
+          return this.loadMap();
+        }, 1000)
+      } else {
+        await this.$nextTick();
+        this.loadedMap = true;
+        let map = new window.Microsoft.Maps.Map(this.$refs.map, {
+          center: new window.Microsoft.Maps.Location(this.mapOptions.center.latitude, this.mapOptions.center.longitude),
+          zoom: this.mapOptions.zoom
+        });
+        for (const pin of this.mapOptions.pins) {
+          let pushpin = new window.Microsoft.Maps.Pushpin(
+            new window.Microsoft.Maps.Location(pin.location.latitude, pin.location.longitude),
+            { title: pin.title });
+          map.entities.push(pushpin);
+        }
+      }
     }
   },
   mounted () {
