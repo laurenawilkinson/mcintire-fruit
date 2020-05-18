@@ -139,7 +139,7 @@
   }
 
   @include breakpoint-up('md') {
-    flex-wrap: unset;
+    flex-wrap: nowrap;
     padding: 0 $horizontal-margin;
 
     .card + .card {
