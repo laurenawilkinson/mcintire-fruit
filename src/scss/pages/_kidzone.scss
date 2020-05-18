@@ -94,6 +94,10 @@
       transform: translateX(-50%);
       width: 80%;
       text-align: center;
+
+      @include breakpoint-down('sm') {
+        font-size: 2rem;
+      }
       
       @include breakpoint-up('sm') {
         text-align: left;
