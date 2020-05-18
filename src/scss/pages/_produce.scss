@@ -13,14 +13,17 @@
 
   .products-list {
     display: grid;
+    display:-ms-grid;
     grid-gap: 2rem;
 
     @include breakpoint-up ('sm') {
       grid-template-columns: 1fr 1fr;
+      -ms-grid-columns: 1fr 1fr;
     }
 
     @include breakpoint-up ('md') {
       grid-template-columns: 1fr 1fr 1fr;
+      -ms-grid-columns: 1fr 1fr 1fr;
     }
 
     .product-detail {

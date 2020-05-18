@@ -34,6 +34,7 @@
 .events {
   .events-bar {
     display: grid;
+    display:-ms-grid;
     
     .static-label {
       margin: 1rem 0;
@@ -49,12 +50,15 @@
     }
     
     @include breakpoint-up('md') {
+      -ms-grid-columns: 1fr auto;
       grid-template-columns: 1fr auto;
+      -ms-grid-rows: auto auto;
       grid-template-rows: auto auto;
 
       .static-label {
         margin: 0 0 0.5rem;
         grid-row: 1;
+        -ms-grid-row: 1;
       }
     }     
     
@@ -117,6 +121,7 @@
 
   .event-list {
     display: grid;
+    display:-ms-grid;
 
     .event-card__info {
       font-size: $body-large-font-size;
@@ -173,15 +178,18 @@
 
     @include breakpoint-up('lg'){
       grid-template-columns: 1fr 1fr;
+      -ms-grid-columns: 1fr 2rem 1fr;
       grid-gap: 2rem;
 
       .card {
         margin-bottom: 0;
         &:nth-of-type(odd) {
           grid-column: 1;
+          -ms-grid-column: 1;
         } 
         &:nth-of-type(even) {
           grid-column: 2;
+          -ms-grid-column: 2;
         }
       }
     }
