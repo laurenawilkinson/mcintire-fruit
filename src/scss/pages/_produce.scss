@@ -12,8 +12,8 @@
   }
 
   .products-list {
-    display: grid;
     display:-ms-grid;
+    display: grid;
     grid-gap: 2rem;
 
     @include breakpoint-up ('sm') {

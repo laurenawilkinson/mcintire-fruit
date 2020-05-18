@@ -2,8 +2,8 @@
   background-color: white;
   
   .container {
-    display: grid;
     display:-ms-grid;
+    display: grid;
     align-items: center;
     grid-template-columns: 1fr auto auto;
     -ms-grid-columns: 1fr auto auto;
