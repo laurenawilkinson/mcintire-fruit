@@ -178,30 +178,36 @@ export default {
         .then(data => data.json())
         .then(data => { 
           this.products = data.map(x => new Product(x, this.regions, this.months));
-          this.loadingProducts = false;
         })
-        .catch(err => console.error(err))
+        .catch(err => console.error('Failed to fetch products from API', err))
+
+      this.loadingProducts = false;
+    },
+    createMonthsData (data) {
+      return data
+        .map(x => {
+          let key = new Date(x.name + ' 1 2020').getMonth();
+
+          return {
+            id: x.id,
+            name: x.name,
+            monthKey: key
+          }
+        })
+        .sort((a, b) => 
+          isNaN(a.monthKey) || isNaN(b.monthKey)
+            ? 0
+            : a.monthKey - b.monthKey);
     },
     async fetchMonths () {
       await fetch(this.monthsLink)
         .then(data => data.json())
         .then(data => { 
-          this.months = data
-            .map(x => {
-              let key = new Date(x.name + ' 1 2020').getMonth();
-
-              return {
-                id: x.id,
-                name: x.name,
-                monthKey: key
-              }
-            })
-            .sort((a, b) => 
-              isNaN(a.monthKey) || isNaN(b.monthKey)
-                ? 0
-                : a.monthKey - b.monthKey)
+          this.months = this.createMonthsData(data);
         })
-        .catch(err => console.error(err))
+        .catch(err => { 
+          console.error('Failed to fetch months from API', err)
+        })
     },
     async fetchRegions () {
       await fetch(this.regionsLink)
@@ -214,7 +220,7 @@ export default {
             }
           })
         })
-        .catch(err => console.error(err))
+        .catch(err => console.error('Failed to fetch regions from API', err))
     }
   },
   async created () {
