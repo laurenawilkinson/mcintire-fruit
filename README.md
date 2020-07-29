@@ -1,29 +1,18 @@
-# mcintire-fruit
+# McIntire Fruit
 
-## Project setup
-```
-npm install
-```
+A site designed and developed for a fictional organic fruit-and-veg company, using Vue and Wordpress API. The company have both US and UK branches, selling regional and seasonal produce as well as hosting events and aiming to educate kids on the importance of healthy eating. They wanted to capture their local, family-friendly brand within the website to welcome new customers and increase the return visit rate on their site.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+>Wordpress API is currently unhosted, so products will not be available at this time.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## [Demo](https://lw-mcintire-fruit.netlify.app/) 💻
 
-### Run your tests
-```
-npm run test
-```
+## Running Locally
 
-### Lints and fixes files
-```
-npm run lint
-```
+**Project setup** <br />
+`npm install`
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**Compiles and hot-reloads for development** <br />
+`npm run serve`
+
+**Compiles and minifies for production** <br />
+`npm run build`
